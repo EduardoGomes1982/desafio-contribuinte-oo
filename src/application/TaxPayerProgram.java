@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -12,31 +14,32 @@ public class TaxPayerProgram {
 
 		System.out.print("Quantos Contribuintes Você vai Digitar? ");
 		int payersNumber = sc.nextInt();
-		TaxPayer[] tp = new TaxPayer[payersNumber];
+		List<TaxPayer> taxPayers = new ArrayList<>();
 		System.out.println();
 		
-		for (int i = 0; i < tp.length; i++) {
-			tp[i] = new TaxPayer();
+		for (int i = 0; i < payersNumber; i++) {
+			TaxPayer tp = new TaxPayer();
 			System.out.printf("Digite os Dados do %do Contribuinte:%n", i + 1);
-
 			System.out.print("Renda Anual com Salário: ");
-			tp[i].setSalaryIncome(sc.nextDouble());
+			tp.setSalaryIncome(sc.nextDouble());
 			System.out.print("Renda Anual com Prestação de Serviços: ");
-			tp[i].setServiceIncome(sc.nextDouble());
+			tp.setServiceIncome(sc.nextDouble());
 			System.out.print("Renda Anual com Ganho de Capital: ");
-			tp[i].setCapitalIncome(sc.nextDouble());
+			tp.setCapitalIncome(sc.nextDouble());
 			System.out.print("Gastos Médicos: ");
-			tp[i].setHealthSpending(sc.nextDouble());
+			tp.setHealthSpending(sc.nextDouble());
 			System.out.print("Gastos Educacionais: ");
-			tp[i].setEducationSpending(sc.nextDouble());
+			tp.setEducationSpending(sc.nextDouble());
+			taxPayers.add(tp);
+			System.out.println();
 		}
 
-		for (int i = 0; i < tp.length; i++) {
-			System.out.println();
+		for (int i = 0; i < taxPayers.size(); i++) {
 			System.out.printf("Resumo do %do Contribuinte:%n", i + 1);
-			System.out.printf("Imposto bruto total: %.2f%n", tp[i].grossTax());
-			System.out.printf("Abatimento: %.2f%n", tp[i].taxRebate());
-			System.out.printf("Imposto devido: %.2f%n", tp[i].netTax());
+			System.out.printf("Imposto bruto total: %.2f%n", taxPayers.get(i).grossTax());
+			System.out.printf("Abatimento: %.2f%n", taxPayers.get(i).taxRebate());
+			System.out.printf("Imposto devido: %.2f%n", taxPayers.get(i).netTax());
+			System.out.println();
 		}
 
 		sc.close();
